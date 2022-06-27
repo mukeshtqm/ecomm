@@ -5,12 +5,13 @@ use Cake\ORM\TableRegistry;
 class UsersController extends Appcontroller{
     public function initialize()
     {
-        $this->loadModel('Users');
         // Always enable the CSRF component.
         $this->loadComponent('Csrf');
         $this->loadComponent('Flash');  
     }
-     
+    public function view(){
+        $this->set('color', 'pink');
+    }
     
     public function add()
     {
@@ -20,7 +21,7 @@ class UsersController extends Appcontroller{
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
-                // return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
@@ -54,12 +55,5 @@ class UsersController extends Appcontroller{
         $message = $e->getMessage();
         $this->Flash->error($message);
     }
-    }
-
-    public function view($id = null)
-    {
-        $user = $this->Users->get('Users');
-
-        $this->set('user', $user);
     }
 }
